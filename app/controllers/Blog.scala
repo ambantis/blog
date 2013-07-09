@@ -54,8 +54,21 @@ object Blog extends Controller with MongoController {
     Async {
       val cursor: Cursor[JsObject] = articles.
         find(Json.obj("date.year" -> year)).
+        //projection(Json.obj("_id" -> 0)).
+        //sort(Json.obj("posted" -> 1)).
+        cursor[JsObject]
+
+      val futureResult: Future[List[JsValue]] = cursor.toList()
+      futureResult map(a => Ok(Json.prettyPrint(JsArray(a))))
+    }
+  }
+
+  def listMonth(year: Int, month: Int) = Action { implicit request =>
+    Async {
+      val cursor: Cursor[JsObject] = articles.
+        find(Json.obj("$and" -> Json.arr(Json.obj("date.year" -> year),
+                                         Json.obj("date.month" -> month)))).
         projection(Json.obj("_id" -> 0)).
-        sort(Json.obj("posted" -> 1)).
         cursor[JsObject]
 
       val futureResult: Future[List[JsValue]] = cursor.toList()
