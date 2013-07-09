@@ -4,10 +4,10 @@ require 'zurb-foundation'
 
 # Set this to the root of your project when deployed:
 http_path = "/"
-css_dir = "public/css"
+css_dir = "public/stylesheets"
 sass_dir = "public/sass"
-images_dir = "public/img"
-javascripts_dir = "public/js"
+images_dir = "public/images"
+javascripts_dir = "public/javascripts"
 
 environment = :development
 

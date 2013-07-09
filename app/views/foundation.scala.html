@@ -1,3 +1,4 @@
+@(articles: Seq[Article])
 <!DOCTYPE html>
 <!--[if IE 8]> 				 <html class="no-js lt-ie9" lang="en" > <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
@@ -8,8 +9,8 @@
   <title>Foundation 4</title>
 
   
-  <link rel="stylesheet" href='@routes.Assets.at("css/app.css")'/>
-  <script src='@routes.Assets.at("js/vendor/custom.modernizr.js")'></script>
+  <link rel="stylesheet" href='@routes.Assets.at("stylesheets/app.css")'/>
+  <script src='@routes.Assets.at("javascripts/vendor/custom.modernizr.js")'></script>
 
 </head>
 <body>
@@ -40,7 +41,20 @@
 
       <!-- Main Blog Content -->
     <div class="large-9 columns" role="content">
+      @for(article <- articles) {
+        <article>
+          <h3><a href="#">@article.title</a></h3>
+          <h6>Written by <a href="#">Alexandros Bantis</a> on @article.posted</h6>
+          <div class="large-6 columns">
+            @Html(article.body)
+          </div>
+          <div class="large-6 columns">
+            <img src="http://placehold.it/400x240&amp;ext=[img]"/>
+          </div>
 
+        </article>
+        <hr/>
+      }
       <article>
 
         <h3><a href="#">Blog Post Title</a></h3>
@@ -58,7 +72,7 @@
             </p>
           </div>
           <div class="large-6 columns">
-            <img src="http://placehold.it/400x240&text=[img]" />
+            <img src="http://placehold.it/400x240&amp;ext=[img]" />
           </div>
         </div>
 
@@ -77,7 +91,7 @@
 
       </article>
 
-      <hr />
+      <hr>
 
       <article>
 
@@ -136,7 +150,7 @@
         <h5>Featured</h5>
         <p>Pork drumstick turkey fugiat. Tri-tip elit turducken pork chop in. Swine short ribs
           meatball irure bacon nulla pork belly cupidatat meatloaf cow.</p>
-        <a href="#">Read More &rarr;</a>
+        <a href="#">Read More &#8594;</a>
       </div>
 
     </aside>
@@ -153,7 +167,7 @@
       <hr />
       <div class="row">
         <div class="large-6 columns">
-          <p>&copy; Copyright no one at all. Go to town.</p>
+          <p>&#169; Copyright no one at all. Go to town.</p>
         </div>
         <div class="large-6 columns">
           <ul class="inline-list right">
@@ -166,26 +180,26 @@
       </div>
     </div>
   </footer>
-  <script>
-  document.write(
-  ('__proto__' in {} ? '@routes.Assets.at("js/vendor/zepto.js") : '@routes.Assets.at("js/vendor/jquery.js")')
-  </script>
-  
-  <script src='@routes.Assets.at("js/foundation/foundation.js")'></script>
-  <script src='@routes.Assets.at("js/foundation/foundation.orbit.js")'></script>
-	<script src='@routes.Assets.at("js/foundation/foundation.topbar.js")'></script>
-	<script src='@routes.Assets.at("js/foundation/foundation.magellan.js")'></script>
-	<script src='@routes.Assets.at("js/foundation/foundation.section.js")'></script>
-	<script src='@routes.Assets.at("js/foundation/foundation.reveal.js")'></script>
-	<script src='@routes.Assets.at("js/foundation/foundation.dropdown.js")'></script>
-	<script src='@routes.Assets.at("js/foundation/foundation.forms.js")'></script>
-	<script src='@routes.Assets.at("js/foundation/foundation.interchange.js")'></script>
-	<script src='@routes.Assets.at("js/foundation/foundation.clearing.js")'></script>
-	<script src='@routes.Assets.at("js/foundation/foundation.alerts.js")'></script>
-	<script src='@routes.Assets.at("js/foundation/foundation.tooltips.js")'></script>
-	<script src='@routes.Assets.at("js/foundation/foundation.cookie.js")'></script>
-	<script src='@routes.Assets.at("js/foundation/foundation.joyride.js")'></script>
-	<script src='@routes.Assets.at("js/foundation/foundation.placeholder.js")'></script>
+  @*<script>*@
+  @*document.write(*@
+  @*('__proto__' in {} ? 'src=' + '@routes.Assets.at("javascripts/vendor/zepto.js")' : 'src=' + '@routes.Assets.at("javascripts/vendor/jquery.js")')*@
+  @*</script>*@
+  <script src='@routes.Assets.at("javascripts/vendor/zepto.js")'></script>
+  <script src='@routes.Assets.at("javascripts/foundation/foundation.js")'></script>
+  <script src='@routes.Assets.at("javascripts/foundation/foundation.orbit.js")'></script>
+	<script src='@routes.Assets.at("javascripts/foundation/foundation.topbar.js")'></script>
+	<script src='@routes.Assets.at("javascripts/foundation/foundation.magellan.js")'></script>
+	<script src='@routes.Assets.at("javascripts/foundation/foundation.section.js")'></script>
+	<script src='@routes.Assets.at("javascripts/foundation/foundation.reveal.js")'></script>
+	<script src='@routes.Assets.at("javascripts/foundation/foundation.dropdown.js")'></script>
+	<script src='@routes.Assets.at("javascripts/foundation/foundation.forms.js")'></script>
+	<script src='@routes.Assets.at("javascripts/foundation/foundation.interchange.js")'></script>
+	<script src='@routes.Assets.at("javascripts/foundation/foundation.clearing.js")'></script>
+	<script src='@routes.Assets.at("javascripts/foundation/foundation.alerts.js")'></script>
+	<script src='@routes.Assets.at("javascripts/foundation/foundation.tooltips.js")'></script>
+	<script src='@routes.Assets.at("javascripts/foundation/foundation.cookie.js")'></script>
+	<script src='@routes.Assets.at("javascripts/foundation/foundation.joyride.js")'></script>
+	<script src='@routes.Assets.at("javascripts/foundation/foundation.placeholder.js")'></script>
   
   <script>
     $(document).foundation();
