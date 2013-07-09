@@ -62,4 +62,20 @@ object Blog extends Controller with MongoController {
       futureResult map(a => Ok(Json.prettyPrint(JsArray(a))))
     }
   }
+
+  def findArticle(year: Int, month: Int, slug: String) = Action { implicit request =>
+    Async {
+      val result: Future[Option[JsValue]] = articles.
+        find(Json.obj("$and" -> Json.arr(Json.obj("date.year" -> year),
+                                         Json.obj("date.month" -> month),
+                                         Json.obj("slug" -> slug)))).
+        projection(Json.obj("_id" -> 0)).
+        cursor[JsObject].headOption()
+
+      result.map {
+        case Some(x) => Ok(Json.prettyPrint(x))
+        case None => NotFound
+      }
+    }
+  }
 }
