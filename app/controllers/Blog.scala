@@ -59,7 +59,7 @@ object Blog extends Controller with MongoController {
         cursor[JsObject]
 
       val futureResult: Future[List[JsValue]] = cursor.toList()
-      futureResult map(a => Ok(Json.prettyPrint(JsArray(a))))
+      futureResult map(a => Ok(views.html.foundation(a)))
     }
   }
 

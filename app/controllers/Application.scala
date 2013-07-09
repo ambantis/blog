@@ -13,7 +13,7 @@ object Application extends Controller {
 
   def listYear(year: Int) = Action {
     val articles = Article.findArticleByYear(year)
-    Ok(views.html.foundation(articles))
+    Ok("hello")
 //    Ok(toJson(articles))
   }
 
