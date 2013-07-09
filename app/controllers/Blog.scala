@@ -9,46 +9,25 @@ import scala.concurrent.Future
 
 /**
  *
- *
- *
- *
- */
-
-
-
-/**
- *
  * User: Alexandros Bantis
  * Date: 7/8/13
  * Time: 7:44 PM
  */
 object Blog extends Controller with MongoController {
 
-//  dbSchema = Json.obj(
-//    "articles" -> Json.arr(
-//      Json.obj(
-//        "date" -> Json.obj(
-//          "year" -> 2013,
-//          "month" -> 6,
-//          "day" -> 20
-//        ),
-//        "uri" -> "2013/06/hello-world",
-//        "slug" -> "hello-world",
-//        "title" -> "Hello World!",
-//         "body" -> "<p>Hello <em>World</em></p>",
-//         "tags" -> Json.arr("hack"),
-//         "comments" -> Json.arr(
-//            Json.obj(
-//              "user" -> "jim",
-//              "posted" -> "2013-06-30",
-//              "comment" -> "way to go!"
-//            )
-//         )
-//      )
-//    )
-//  )
-
   def articles: JSONCollection = db.collection[JSONCollection]("articles")
+
+  def index = Action { implicit request =>
+    Async{
+      val cursor: Cursor[JsObject] = articles.
+        find(Json.obj()).
+        sort(Json.obj("date" -> 1)).
+        cursor[JsObject]
+
+      val futureResult: Future[List[JsValue]] = cursor.toList()
+      futureResult map(a => Ok(views.html.foundation(a)))
+    }
+  }
 
   def listYear(year: Int) = Action { implicit request =>
     Async {

@@ -1,6 +1,13 @@
 @(articles: List[play.api.libs.json.JsValue])
 @import play.api.libs.json.JsValue
 
+@parseDate(article: JsValue) = @{
+  val year = (article \ "date" \ "year").as[Int]
+  val month = (article \ "date" \ "month").as[Int]
+  val day = (article \ "date" \ "day").as[Int]
+  new org.joda.time.LocalDate(year, month, day).toString("MMMM dd, yyyy")
+}
+
 <!DOCTYPE html>
 <!--[if IE 8]> 				 <html class="no-js lt-ie9" lang="en" > <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
@@ -46,7 +53,7 @@
       @for(article: JsValue <- articles) {
         <article>
           <h3><a href="#">@(article \ "title")</a></h3>
-          <h6>Written by <a href="#">Alexandros Bantis</a> on @((article \ "date" \ "month").as[Int])/@((article \ "date" \ "day").as[Int])/@((article \ "date" \ "year").as[Int])</h6>
+          <h6>Written by <a href="#">Alexandros Bantis</a> on @parseDate(article)</h6>
           <div class="large-6 columns">
             @Html((article \ "body").as[String])
           </div>
