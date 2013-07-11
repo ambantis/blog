@@ -1,10 +1,13 @@
 package controllers
 
+import play.api.libs.json.{JsObject, JsValue, Json, JsArray}
 import play.api.mvc.{Action, Controller}
-import play.modules.reactivemongo.MongoController
+import play.modules.reactivemongo.json.BSONFormats.toJSON
 import play.modules.reactivemongo.json.collection.JSONCollection
+import play.modules.reactivemongo.MongoController
 import reactivemongo.api.Cursor
-import play.api.libs.json.{JsArray, JsValue, Json, JsObject}
+import reactivemongo.bson.BSONDocument
+import reactivemongo.core.commands.{Aggregate, Project, Unwind}
 import scala.concurrent.Future
 
 /**
@@ -14,7 +17,6 @@ import scala.concurrent.Future
  * Time: 7:44 PM
  */
 object Blog extends Controller with MongoController {
-
 
   def articles: JSONCollection = db.collection[JSONCollection]("articles")
 
@@ -69,6 +71,17 @@ object Blog extends Controller with MongoController {
         case Some(x) => Ok(Json.prettyPrint(x))
         case None => NotFound
       }
+    }
+  }
+
+  def listTags = Action { implicit request =>
+    Async {
+      val command = Aggregate("articles", Seq(
+        Project("tags" -> 1),
+        Unwind("tags")
+      ))
+      val result: Future[Stream[BSONDocument]] = db.command(command)
+      result.map(x => Ok(JsArray(x.toList.map(y => toJSON(y) \ "tags").distinct )))
     }
   }
 }
