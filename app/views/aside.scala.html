@@ -1,0 +1,10 @@
+@(tags: List[play.api.libs.json.JsValue])
+@import play.api.libs.json.JsValue
+
+<h5>Categories</h5>
+  <ul class="side-nav">
+    @for(tag: JsValue <- tags) {
+      <li><a href="#">@tag / "name"</a></li>
+    }
+  </ul>
+

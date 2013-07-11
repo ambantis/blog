@@ -15,6 +15,7 @@ import scala.concurrent.Future
  */
 object Blog extends Controller with MongoController {
 
+
   def articles: JSONCollection = db.collection[JSONCollection]("articles")
 
   def index = Action { implicit request =>
@@ -25,7 +26,7 @@ object Blog extends Controller with MongoController {
         cursor[JsObject]
 
       val futureResult: Future[List[JsValue]] = cursor.toList()
-      futureResult map(a => Ok(views.html.foundation(a)))
+      futureResult map(a => Ok(views.html.article(a)))
     }
   }
 
@@ -38,7 +39,7 @@ object Blog extends Controller with MongoController {
         cursor[JsObject]
 
       val futureResult: Future[List[JsValue]] = cursor.toList()
-      futureResult map(a => Ok(views.html.foundation(a)))
+      futureResult map(a => Ok(views.html.article(a)))
     }
   }
 

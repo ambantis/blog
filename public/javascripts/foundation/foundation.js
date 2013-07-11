@@ -183,7 +183,7 @@ if (typeof jQuery === "undefined" &&
       // check RTL
       this.rtl = /rtl/i.test($('html').attr('dir'));
 
-      // set foundation global scope
+      // set main global scope
       this.scope = scope || this.scope;
 
       if (libraries && typeof libraries === 'string' && !/reflow/i.test(libraries)) {
@@ -419,7 +419,7 @@ if (typeof jQuery === "undefined" &&
       return error.name + ' ' + error.message + '; ' + error.more;
     },
 
-    // remove all foundation events.
+    // remove all main events.
     off: function () {
       $(this.scope).off('.fndtn');
       $(window).off('.fndtn');
