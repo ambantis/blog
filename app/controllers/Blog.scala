@@ -20,7 +20,7 @@ object Blog extends Controller with MongoController {
 
   def articles: JSONCollection = db.collection[JSONCollection]("articles")
 
-  def index = Action { implicit request =>
+  def listAllArticles = Action { implicit request =>
     Async{
       val cursor: Cursor[JsObject] = articles.
         find(Json.obj()).
@@ -28,11 +28,11 @@ object Blog extends Controller with MongoController {
         cursor[JsObject]
 
       val futureResult: Future[List[JsValue]] = cursor.toList()
-      futureResult map(a => Ok(JsArray(a)))
+      futureResult map(a => Ok(Json.prettyPrint(JsArray(a))))
     }
   }
 
-  def listYear(year: Int) = Action { implicit request =>
+  def listArticlesByYear(year: Int) = Action { implicit request =>
     Async {
       val cursor: Cursor[JsObject] = articles.
         find(Json.obj("date.year" -> year)).
@@ -41,11 +41,11 @@ object Blog extends Controller with MongoController {
         cursor[JsObject]
 
       val futureResult: Future[List[JsValue]] = cursor.toList()
-      futureResult map(a => Ok(JsArray(a)))
+      futureResult map(a => Ok(Json.prettyPrint(JsArray(a))))
     }
   }
 
-  def listMonth(year: Int, month: Int) = Action { implicit request =>
+  def listArticlesByMonth(year: Int, month: Int) = Action { implicit request =>
     Async {
       val cursor: Cursor[JsObject] = articles.
         find(Json.obj("$and" -> Json.arr(Json.obj("date.year" -> year),
@@ -74,7 +74,7 @@ object Blog extends Controller with MongoController {
     }
   }
 
-  def listTags = Action { implicit request =>
+  def listAllTags = Action { implicit request =>
     Async {
       val command = Aggregate("articles", Seq(
         Project("tags" -> 1),
@@ -82,6 +82,17 @@ object Blog extends Controller with MongoController {
       ))
       val result: Future[Stream[BSONDocument]] = db.command(command)
       result.map(x => Ok(JsArray(x.toList.map(y => toJSON(y) \ "tags").distinct )))
+    }
+  }
+
+  def listArticlesByTag(tag: String) = Action { implicit request =>
+    Async {
+      val result: Future[List[JsValue]] = articles.
+        find(Json.obj("tags" -> tag)).
+        projection(Json.obj("_id" -> 0)).
+        cursor[JsObject].toList()
+
+      result.map(a => Ok(Json.prettyPrint(JsArray(a))))
     }
   }
 }
