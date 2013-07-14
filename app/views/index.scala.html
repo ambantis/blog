@@ -1,0 +1,82 @@
+@(title: String)
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>@title</title>
+  <link rel="stylesheet" href='@routes.Assets.at("stylesheets/app.css")'/>
+</head>
+<body>
+
+  <div class="row">
+
+    <!-- Nav Bar -->
+    <div class="row">
+      <div class="large-12 columns">
+        <div class="nav-bar right">
+          <ul class="button-group">
+            <li><a href="#" class="button">Link 1</a></li>
+            <li><a href="#" class="button">Link 2</a></li>
+            <li><a href="#" class="button">Link 3</a></li>
+            <li><a href="#" class="button">Link 4</a></li>
+          </ul>
+        </div>
+        <h1>Blog <small>This is my blog. It's awesome.</small></h1>
+        <hr />
+      </div>
+    </div>
+
+    <!-- End Nav -->
+
+    <!-- Main Page Content and Sidebar -->
+
+    <div class="row">
+
+      <!-- Main Blog Content -->
+      <div class="large-9 columns" role="content" data-url="@routes.Blog.listArticlesByYear(2013)">
+
+        <article>
+          <h3><a href="#">Title</a></h3>
+          <h6>Written by <a href="#">Alexandros Bantis</a> on <span>August 12, 2012</span>.</h6>
+        </article>
+
+      </div>
+
+      <!-- End Main Blog Content -->
+
+
+      <!-- Sidebar -->
+
+      <aside class="large-3 columns" data-url="@routes.Blog.listAllTags()">
+
+        <h5>Categories</h5>
+        <ul class="side-nav">
+          <li><a href="#">News</a></li>
+          <li><a href="#">Code</a></li>
+          <li><a href="#">Design</a></li>
+          <li><a href="#">Fun</a></li>
+          <li><a href="#">Weasels</a></li>
+        </ul>
+
+        <div class="panel">
+          <h5>Featured</h5>
+          <p>Pork drumstick turkey fugiat. Tri-tip elit turducken pork chop in. Swine short ribs
+            meatball irure bacon nulla pork belly cupidatat meatloaf cow.</p>
+          <a href="#">Read More &#8594;</a>
+        </div>
+
+      </aside>
+
+      <!-- End Sidebar -->
+
+    </div>
+
+    <!-- End Main Page Content and Sidebar -->
+
+  </div>
+
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+  <script type="text/javascript" src='@routes.Assets.at("javascripts/index.js")'></script>
+</body>
+</html>

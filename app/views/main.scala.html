@@ -10,7 +10,8 @@
 
   
   <link rel="stylesheet" href='@routes.Assets.at("stylesheets/app.css")'/>
-  <script src='@routes.Assets.at("javascripts/vendor/custom.modernizr.js")'></script>
+  <script type="text/javascript"
+    src="//cdnjs.cloudflare.com/ajax/libs/foundation/4.1.6/js/foundation.min.js"></script>
 
 </head>
 <body>
@@ -167,27 +168,15 @@
       </div>
     </div>
   </footer>
-  @*<script>*@
-  @*document.write(*@
-  @*('__proto__' in {} ? 'src=' + '@routes.Assets.at("javascripts/vendor/zepto.js")' : 'src=' + '@routes.Assets.at("javascripts/vendor/jquery.js")')*@
-  @*</script>*@
-  <script src='@routes.Assets.at("javascripts/vendor/zepto.js")'></script>
-  <script src='@routes.Assets.at("javascripts/foundation/foundation.js")'></script>
-  <script src='@routes.Assets.at("javascripts/foundation/foundation.orbit.js")'></script>
-	<script src='@routes.Assets.at("javascripts/foundation/foundation.topbar.js")'></script>
-	<script src='@routes.Assets.at("javascripts/foundation/foundation.magellan.js")'></script>
-	<script src='@routes.Assets.at("javascripts/foundation/foundation.section.js")'></script>
-	<script src='@routes.Assets.at("javascripts/foundation/foundation.reveal.js")'></script>
-	<script src='@routes.Assets.at("javascripts/foundation/foundation.dropdown.js")'></script>
-	<script src='@routes.Assets.at("javascripts/foundation/foundation.forms.js")'></script>
-	<script src='@routes.Assets.at("javascripts/foundation/foundation.interchange.js")'></script>
-	<script src='@routes.Assets.at("javascripts/foundation/foundation.clearing.js")'></script>
-	<script src='@routes.Assets.at("javascripts/foundation/foundation.alerts.js")'></script>
-	<script src='@routes.Assets.at("javascripts/foundation/foundation.tooltips.js")'></script>
-	<script src='@routes.Assets.at("javascripts/foundation/foundation.cookie.js")'></script>
-	<script src='@routes.Assets.at("javascripts/foundation/foundation.joyride.js")'></script>
-	<script src='@routes.Assets.at("javascripts/foundation/foundation.placeholder.js")'></script>
-  
+
+  <script>
+    document.write('<script src=//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.1/jquery.min.js'
+     + ('__proto__' in {} ? 'jquery/1.10.2/jquery.min.js' : 'zepto/1.0rc1/zepto.min.js')
+      + '.js><\/script>');
+  </script>
+  <script type="text/javascript"
+    src="//cdnjs.cloudflare.com/ajax/libs/foundation/4.1.6/js/foundation.min.js"></script>
+  <script type="text/javascript" src='@routes.Assets.at("javascripts/blog.js")'></script>
   <script>
     $(document).main();
   </script>

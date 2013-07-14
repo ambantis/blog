@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>index.litcoffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="public/stylesheets/normalize.css" />
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="page">
+
+      <div class="header">
+        
+          <h1>index.litcoffee</h1>
+        
+
+        
+      </div>
+
+      
+        
+        <p>Now we&quot;re going to start learning about jQuery ajax</p>
+
+        
+          <div class='highlight'><pre>$ -&gt;</pre></div>
+        
+      
+        
+        <p>First, we&quot;ve got to make a link for the articles array. We identify the
+<code>div</code> that has a role=content and then extract the contents of the data-content
+element</p>
+
+        
+          <div class='highlight'><pre>  $articleListUrl = $(<span class="string">'[role="content"]'</span>).data(<span class="string">"url"</span>)
+  $articleTemplate = $(<span class="string">"article"</span>)
+  $mycontent = $(<span class="string">'[role="content"]'</span>)
+  $(<span class="string">"article"</span>).remove()
+
+  $.ajax(
+    url : $articleListUrl
+    type : <span class="string">"get"</span>
+    dataType : <span class="string">"json"</span>)
+    .done (data) -&gt;
+      console.log(<span class="string">"request is done"</span>)
+      $.each data, (idx, dat) -&gt;
+        $article = $articleTemplate.clone()
+        $article.find(<span class="string">"h3 a"</span>).attr(
+          href : dat.slug
+          text : dat.title)
+        $article.find(<span class="string">"h3 a"</span>).text(dat.title)
+        $article.find(<span class="string">"h6 span"</span>).text(
+          <span class="keyword">new</span> Date(dat.date.year, dat.date.month, dat.date.day))
+        $article.append(dat.body).append(<span class="string">"&lt;hr&gt;"</span>)
+        $mycontent.append($article)</pre></div>
+        
+      
+      <div class="fleur">h</div>
+    </div>
+  </div>
+</body>
+</html>
